@@ -1,8 +1,9 @@
-import pdb
+# import pdb
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import time
 # from selenium.webdriver.chrome.options import Options
-
+# from selenium.webdriver.support import expected_conditions as EC
 
 # options = webdriver.ChromeOptions()
 # options.add_experimental_option('w3c', False)
@@ -57,12 +58,12 @@ def test_create_new_project(selenium):
 
 def test_create_new_file(selenium):
     test_login(selenium)
-    selenium.find_element_by_partial_link_text('new').click()
+    selenium.find_element_by_partial_link_text('crazy').click()
     selenium.find_element_by_class_name("add-to-tree").click()
     selenium.find_element_by_link_text('New file').click()
     selenium.find_element_by_class_name('dropdown-toggle-text').click()
     selenium.find_element_by_link_text('.gitignore').click()
-    selenium.find_element_by_id('file_name').send_keys('fresh file')
+    selenium.find_element_by_id('file_name').send_keys('abcd')
     selenium.find_element_by_class_name(
         'ace_text-input').send_keys('random text')
     selenium.find_element_by_name('commit_message').send_keys('yay commit')
@@ -78,8 +79,18 @@ def test_find_file(selenium):
 
 def test_edit_file(selenium):
     test_find_file(selenium)
+    time.sleep(5)
     selenium.find_element_by_id("file_find").send_keys(Keys.RETURN)
+
     selenium.find_element_by_link_text('Edit').click()
     selenium.find_element_by_class_name('ace_content').click()
     selenium.find_element_by_class_name('ace_text-input').send_keys('more')
     selenium.find_element_by_class_name('commit-btn').click()
+
+
+def test_delete_file(selenium):
+    test_find_file(selenium)
+    time.sleep(5)
+    selenium.find_element_by_id("file_find").send_keys(Keys.RETURN)
+    selenium.find_element_by_class_name('btn-remove').click()
+    selenium.find_element_by_class_name('btn-remove-file').click()
