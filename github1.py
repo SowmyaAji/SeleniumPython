@@ -1,15 +1,16 @@
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
-driver = webdriver.Chrome()
-driver.get("https://github.com")
-elem = driver.find_element_by_name("q")
-elem.clear()
-elem.send_keys("ogmaciel")
-elem.send_keys(Keys.RETURN)
-next = driver.find_element_by_partial_link_text("ogmaciel")
-next.click()
+# driver = webdriver.Chrome()
+# driver.get("https://github.com")
+# elem = driver.find_element_by_name("q")
+# elem.clear()
+# elem.send_keys("ogmaciel")
+# elem.send_keys(Keys.RETURN)
+# next = driver.find_element_by_partial_link_text("ogmaciel")
+# next.click()
 
 
 class HomePageTest:
@@ -44,4 +45,4 @@ class HomePageTest:
         next = self. driver.find_element_by_partial_link_text("ogmaciel")
         next.click()
 
-    # check whether the login button on the github home page logs the person into their repository
+# check whether the login button on the github home page logs the person into their repository

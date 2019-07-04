@@ -21,7 +21,6 @@ class BandLeader():
         # track list related state
         self._current_track_number = 1
         self.track_list = []
-        self.tracks()
 
     # def tracks(self):
     #     '''Query the page to populate a list of available tracks'''
