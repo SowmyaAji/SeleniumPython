@@ -46,3 +46,9 @@ class HomePageTest:
         next.click()
 
 # check whether the login button on the github home page logs the person into their repository
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.support import expected_conditions as EC
+
+# options = webdriver.ChromeOptions()
+# options.add_experimental_option('w3c', False)
+# import pdb
