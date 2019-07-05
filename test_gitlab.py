@@ -27,7 +27,7 @@ def test_login_button(selenium):
     elem = selenium.find_element_by_link_text("Sign in")
     elem.click()
 
-# test the login functionality using a root user and 'p455w0rd' as the password
+# test the login functionality using  'root' as username and 'p455w0rd' as the password
 
 
 def test_login(selenium):
@@ -52,15 +52,22 @@ def test_search_repos(selenium):
 # test the create new repository button
 
 
-def test_new_project_button(selenium):
+# if there is no project at all in your repository
+def test_new_project_button1(selenium):
+    test_login(selenium)
+    selenium.find_element_by_class_name('blank-state-link').click()
+    selenium.find_element_by_link_text('New project').click()
+
+
+# if there is at least one project in your repository
+def test_new_project_button2(selenium):
     test_login(selenium)
     selenium.find_element_by_link_text('New project').click()
-    # selenium.find_element_by_class_name('blank-state-link').click()
 
 
 # test to create a new project
 def test_create_new_project(selenium):
-    test_new_project_button(selenium)
+    test_new_project_button2(selenium)
     selenium.find_element_by_id('project_name').send_keys('my crazy project')
     selenium.find_element_by_id('project_path').send_keys('crazy-project')
     selenium.find_element_by_id(
@@ -69,9 +76,25 @@ def test_create_new_project(selenium):
     selenium.find_element_by_name('commit').click()
 
 # test to create a new file
+# if this is the very first file in the project
 
 
-def test_create_new_file(selenium):
+def test_create_new_file1(selenium):
+    test_login(selenium)
+    selenium.find_element_by_partial_link_text('crazy').click()
+    selenium.find_element_by_link_text('New file').click()
+    selenium.find_element_by_class_name('dropdown-toggle-text').click()
+    selenium.find_element_by_link_text('.gitignore').click()
+    selenium.find_element_by_id('file_name').send_keys('abcd')
+    selenium.find_element_by_class_name(
+        'ace_text-input').send_keys('random text')
+    selenium.find_element_by_name('commit_message').send_keys('yay commit')
+    selenium.find_element_by_id('file_name').send_keys(Keys.RETURN)
+
+# if a file already exists/existed in the project
+
+
+def test_create_new_file2(selenium):
     test_login(selenium)
     selenium.find_element_by_partial_link_text('crazy').click()
     selenium.find_element_by_class_name("add-to-tree").click()
@@ -100,7 +123,6 @@ def test_edit_file(selenium):
     test_find_file(selenium)
     time.sleep(5)
     selenium.find_element_by_id("file_find").send_keys(Keys.RETURN)
-
     selenium.find_element_by_link_text('Edit').click()
     selenium.find_element_by_class_name('ace_content').click()
     selenium.find_element_by_class_name('ace_text-input').send_keys('more')
