@@ -17,3 +17,11 @@ Needs Python 3.6
 
 $pipenv shell
 $pipenv install selenium, pytest, pytest-selenium
+
+##Output
+
+Run this file from command line as pytest -v --driver chrome test_gitlab.py
+
+[two of the tests will fail]
+
+For individual tests, run from command line: pytest -v --driver chrome test_gitlab.py -k [name of the test without args]
