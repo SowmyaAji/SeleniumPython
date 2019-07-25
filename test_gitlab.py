@@ -50,9 +50,9 @@ def test_search_repos(selenium):
     assert 'Python' in selenium.title
 
 # test the create new repository button
-
-
 # if there is no project at all in your repository
+
+
 def test_new_project_button1(selenium):
     test_login(selenium)
     selenium.find_element_by_class_name('blank-state-link').click()
