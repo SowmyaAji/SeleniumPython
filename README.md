@@ -22,7 +22,7 @@ $ pip install -r requirements.txt
 
 If you don't have Docker on your machine, go to:
 
-https://docs.docker.com/v17.12/get-started/#recap-and-cheat-sheet
+https://docs.docker.com/v17.12/docker-for-mac/install/
 
 Go to home directory ($ cd or $ ~)
 $ mkdir data
