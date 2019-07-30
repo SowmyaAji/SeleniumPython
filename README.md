@@ -51,7 +51,6 @@ $ docker run --rm --detach \
  — hostname localhost \
  — publish 443:443 — publish 80:80 — publish 22:22 \
  — name gitlab \
- — restart always \
  — volume /Users/****/data/gitlab/config:/etc/gitlab \
  — volume /Users/****/data/gitlab/logs:/var/log/gitlab \
  — volume /Users/****/data/gitlab/data:/var/opt/gitlab \
