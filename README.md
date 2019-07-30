@@ -33,7 +33,7 @@ $ mkdir gitlab/data:/var/opt/gitlab
 
 Modify following code (put your name in place of **** after Users/) and run it:
 
-$ docker run — detach \
+$ docker run --rm --detach \
  — hostname localhost \
  — publish 443:443 — publish 80:80 — publish 22:22 \
  — name gitlab \
