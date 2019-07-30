@@ -14,9 +14,14 @@ The plugin works as a pytest fixture. Instead of passing a web driver through th
 ## Installation
 
 Needs Python 3.6
+[https://www.python.org/downloads/]
 
+```
 $ pipenv shell
+
 $ pip install -r requirements.txt
+
+```
 
 ## Set up local Docker instance
 
@@ -24,15 +29,24 @@ If you don't have Docker on your machine, go to:
 
 https://docs.docker.com/v17.12/docker-for-mac/install/
 
-Go to home directory ($ cd or $ ~)
+Go to home directory
+```
+($ cd or $ ~)
+
 $ mkdir data
+
 $ cd data
+
 $ mkdir gitlab/config:/etc/gitlab
+
 $ mkdir gitlab/logs:/var/log/gitlab
+
 $ mkdir gitlab/data:/var/opt/gitlab
+```
 
 Modify following code (put your name in place of **** after Users/) and run it:
 
+```
 $ docker run --rm --detach \
  — hostname localhost \
  — publish 443:443 — publish 80:80 — publish 22:22 \
@@ -42,14 +56,30 @@ $ docker run --rm --detach \
  — volume /Users/****/data/gitlab/logs:/var/log/gitlab \
  — volume /Users/****/data/gitlab/data:/var/opt/gitlab \
  gitlab/gitlab-ce:latest
+```
 
 A Docker container will be created. 
 
 
 ## Output
 
-Run this file from command line as pytest -v --driver chrome test_gitlab.py
 
+Make sure you are in the pipenv shell else:
+
+```
+$ pipenv shell
+``` 
+
+Then, run this file from command line as:
+
+```
+pytest -v --driver chrome test_gitlab.py
+
+```
 [two of the tests will fail]
 
-For individual tests, run from command line: pytest -v --driver chrome test_gitlab.py -k [name of the test without args,like this: test_login]
+For individual tests, run from command line:
+```
+pytest -v --driver chrome test_gitlab.py -k 
+[name of the test without args,like this: test_login]
+```

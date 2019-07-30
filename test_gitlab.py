@@ -14,6 +14,7 @@ import time
 # pass selenium fixture (from python-selenium plugin) to each test
 # test to see if Gitlab is in the title of the local host page
 def test_page_title(selenium):
+    selenium.implicitly_wait(15)
     selenium.get('http://localhost')
     assert 'GitLab' in selenium.title
 
@@ -21,7 +22,7 @@ def test_page_title(selenium):
 
 
 def test_login_button(selenium):
-    selenium.implicitly_wait(10)
+    selenium.implicitly_wait(15)
     selenium.maximize_window()
     selenium.get('http://localhost/users/sign_in')
     elem = selenium.find_element_by_link_text("Sign in")
@@ -31,7 +32,7 @@ def test_login_button(selenium):
 
 
 def test_login(selenium):
-    selenium.implicitly_wait(10)
+    selenium.implicitly_wait(15)
     selenium.maximize_window()
     selenium.get('http://localhost')
     selenium.find_element_by_id('user_login').send_keys('root')
