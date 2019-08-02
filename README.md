@@ -37,23 +37,24 @@ $ mkdir data
 
 $ cd data
 
-$ mkdir gitlab/config:/etc/gitlab
+$ mkdir -p gitlab/config
 
-$ mkdir gitlab/logs:/var/log/gitlab
+$ mkdir -p gitlab/logs
 
-$ mkdir gitlab/data:/var/opt/gitlab
+$ mkdir -p gitlab/data
 ```
 
 Modify following code (put your name in place of **** after Users/) and run it:
 
 ```
-$ docker run --rm --detach \
- — hostname localhost \
- — publish 443:443 — publish 80:80 — publish 22:22 \
- — name gitlab \
- — volume /Users/****/data/gitlab/config:/etc/gitlab \
- — volume /Users/****/data/gitlab/logs:/var/log/gitlab \
- — volume /Users/****/data/gitlab/data:/var/opt/gitlab \
+$ docker run --detach \
+ -- hostname localhost \
+ -- publish 443:443 -- publish 80:80 -- publish 22:22 \
+ -- name gitlab \
+ --restart always \
+ -- volume /Users/****/data/gitlab/config:/etc/gitlab \
+ -- volume /Users/****/data/gitlab/logs:/var/log/gitlab \
+ -- volume /Users/****/data/gitlab/data:/var/opt/gitlab \
  gitlab/gitlab-ce:latest
 ```
 

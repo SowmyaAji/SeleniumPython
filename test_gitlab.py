@@ -15,24 +15,23 @@ import time
 # test to see if Gitlab is in the title of the local host page
 def test_page_title(selenium):
     selenium.implicitly_wait(15)
+    selenium.maximize_window()
     selenium.get('http://localhost')
     assert 'GitLab' in selenium.title
 
+
 # test of the login button on the Gitlab home page
-
-
 def test_login_button(selenium):
-    selenium.implicitly_wait(15)
-    selenium.maximize_window()
-    selenium.get('http://localhost/users/sign_in')
+    test_page_title(selenium)
     elem = selenium.find_element_by_link_text("Sign in")
     elem.click()
+    assert 'Username or email' in selenium.page_source
 
 # test the login functionality using  'root' as username and 'p455w0rd' as the password
 
 
 def test_login(selenium):
-    selenium.implicitly_wait(15)
+    selenium.implicitly_wait(10)
     selenium.maximize_window()
     selenium.get('http://localhost')
     selenium.find_element_by_id('user_login').send_keys('root')
@@ -45,19 +44,19 @@ def test_login(selenium):
 def test_search_repos(selenium):
     test_login(selenium)
     elem = selenium.find_element_by_id('search')
+    search_phrase = "Python"
     assert elem is not None
-    elem.send_keys("Python")
-    elem.send_keys(Keys.RETURN)
+    elem.send_keys(search_phrase + Keys.RETURN)
     assert 'Python' in selenium.title
 
 # test the create new repository button
 # if there is no project at all in your repository
 
 
-def test_new_project_button1(selenium):
-    test_login(selenium)
-    selenium.find_element_by_class_name('blank-state-link').click()
-    selenium.find_element_by_link_text('New project').click()
+# def test_new_project_button1(selenium):
+#     test_login(selenium)
+#     selenium.find_element_by_class_name('blank-state-link').click()
+#     selenium.find_element_by_link_text('New project').click()
 
 
 # if there is at least one project in your repository
@@ -80,17 +79,17 @@ def test_create_new_project(selenium):
 # if this is the very first file in the project
 
 
-def test_create_new_file1(selenium):
-    test_login(selenium)
-    selenium.find_element_by_partial_link_text('crazy').click()
-    selenium.find_element_by_link_text('New file').click()
-    selenium.find_element_by_class_name('dropdown-toggle-text').click()
-    selenium.find_element_by_link_text('.gitignore').click()
-    selenium.find_element_by_id('file_name').send_keys('abcd')
-    selenium.find_element_by_class_name(
-        'ace_text-input').send_keys('random text')
-    selenium.find_element_by_name('commit_message').send_keys('yay commit')
-    selenium.find_element_by_id('file_name').send_keys(Keys.RETURN)
+# def test_create_new_file1(selenium):
+#     test_login(selenium)
+#     selenium.find_element_by_partial_link_text('crazy').click()
+#     selenium.find_element_by_link_text('New file').click()
+#     selenium.find_element_by_class_name('dropdown-toggle-text').click()
+#     selenium.find_element_by_link_text('.gitignore').click()
+#     selenium.find_element_by_id('file_name').send_keys('abcd')
+#     selenium.find_element_by_class_name(
+#         'ace_text-input').send_keys('random text')
+#     selenium.find_element_by_name('commit_message').send_keys('yay commit')
+#     selenium.find_element_by_id('file_name').send_keys(Keys.RETURN)
 
 # if a file already exists/existed in the project
 
