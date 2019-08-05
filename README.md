@@ -16,12 +16,6 @@ The plugin works as a pytest fixture. Instead of passing a web driver through th
 Needs Python 3.6
 [https://www.python.org/downloads/]
 
-```
-$ pipenv shell
-
-$ pip install -r requirements.txt
-
-```
 
 ## Set up local Docker instance
 
@@ -29,57 +23,40 @@ If you don't have Docker on your machine, go to:
 
 https://docs.docker.com/v17.12/docker-for-mac/install/
 
-Go to home directory
+Then carry out the following steps:
+
+1. ```
+$ mkdir mydockerimage
+$ curl -k https://gist.githubusercontent.com/SowmyaAji/4f3bb2ad5b9477c4b965bffb6d27f8e3/raw/ecd7e30bd5b7b446cbde18ba392ba93c8942f305/dockerseleniumfile.txt > mydockerimage/Dockerfile
 ```
-($ cd or $ ~)
-
-$ mkdir data
-
-$ cd data
-
-$ mkdir -p gitlab/config
-
-$ mkdir -p gitlab/logs
-
-$ mkdir -p gitlab/data
+2.
+ Now build a container with the dockerfile created. This container will have gitlab code + my SeleniumPython directory + everything needed for it including chrome driver. 
+ 
+ ```
+ $ docker build -t myseleniumimage:latest mydockerimage
 ```
 
-Modify following code (put your name in place of **** after Users/) and run it:
+3. Run the built container with:
+``` 
+$ docker run --name myseleniumcontainer --detach myseleniumimage:latest 
 
 ```
-$ docker run --detach \
- -- hostname localhost \
- -- publish 443:443 -- publish 80:80 -- publish 22:22 \
- -- name gitlab \
- --restart always \
- -- volume /Users/****/data/gitlab/config:/etc/gitlab \
- -- volume /Users/****/data/gitlab/logs:/var/log/gitlab \
- -- volume /Users/****/data/gitlab/data:/var/opt/gitlab \
- gitlab/gitlab-ce:latest
-```
-
-A Docker container will be created. 
 
 
 ## Output
 
-
-Make sure you are in the pipenv shell else:
-
-```
-$ pipenv shell
-``` 
-
-Then, run this file from command line as:
+Run these commands: 
 
 ```
-pytest -v --driver chrome test_gitlab.py
+$ sleep 120
 
 ```
 
-For individual tests, run from command line:
+Wait for the 2 minute sleep to end. Then type:
 
 ```
-pytest -v --driver chrome test_gitlab.py -k 
-[name of the test without args,like this: test_login]
+$ docker exec -it myseleniumcontainer /bin/bash -c "pytest -v --driver chrome /SeleniumPython/test_gitlab.py"
+
 ```
+
+The tests will execute in headless Chrome and will pass. Sometimes, Chrome takes time to load the Gitlab image and the tests may fail as the image did not get loaded in time. Please just run the docker exec command again. 
