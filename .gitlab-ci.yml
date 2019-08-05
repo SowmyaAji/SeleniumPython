@@ -1,0 +1,22 @@
+stages:
+    - build
+    - test
+build:
+    stage: build
+    script:
+        - echo "Building"
+        - mkdir mydockerimage
+        - curl -k https://gist.githubusercontent.com/parthaa/8070976d23e0326cc466a1094ea24927/raw/b75c7b0672b43521583a2303914c9c2d4246c086/gistfile1.txt > mydockerimage/Dockerfile
+        - docker build -t myseleniumimage:latest mydockerimage
+        - docker run --detach myseleniumimage:latest --name myseleniumcontainer
+        - sleep 30
+
+
+    artifacts:
+        paths:
+            - mydockerimage/
+test:
+    stage: test
+    script:
+        - echo "Testing"
+        - docker exec -it myseleniumcontainer /bin/bash -c "pytest -v --driver chrome /SeleniumPython/test_gitlab.py"
