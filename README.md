@@ -25,18 +25,21 @@ https://docs.docker.com/v17.12/docker-for-mac/install/
 
 Then carry out the following steps:
 
-1. ```
+1. 
+```
 $ mkdir mydockerimage
 $ curl -k https://gist.githubusercontent.com/SowmyaAji/4f3bb2ad5b9477c4b965bffb6d27f8e3/raw/ecd7e30bd5b7b446cbde18ba392ba93c8942f305/dockerseleniumfile.txt > mydockerimage/Dockerfile
+
 ```
-2.
- Now build a container with the dockerfile created. This container will have gitlab code + my SeleniumPython directory + everything needed for it including chrome driver. 
+2. Now build a container with the dockerfile created. This container will have gitlab code + my SeleniumPython directory + everything needed for it including chrome driver. 
  
+
  ```
  $ docker build -t myseleniumimage:latest mydockerimage
 ```
 
 3. Run the built container with:
+
 ``` 
 $ docker run --name myseleniumcontainer --detach myseleniumimage:latest 
 
